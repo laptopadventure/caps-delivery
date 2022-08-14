@@ -1,0 +1,17 @@
+{
+  "name": "caps-delivery",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "node start.js",
+    "test": "jest test"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@types/jest": "^28.1.6",
+    "chance": "^1.1.8",
+    "jest": "^28.1.3"
+  }
+}
