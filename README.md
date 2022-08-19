@@ -12,9 +12,13 @@ Demonstrates how events work!
 ## How to use
 
 run `npm i`
+
 run `npm start` to begin, ^C to kill
+
 run `npm v` for the vendor
+
 run `npm d` for the delivery. All three should be running to show how this works.
+
 run `npm test` to run tests
 
 ## Helpful people
