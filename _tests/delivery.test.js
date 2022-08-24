@@ -11,11 +11,6 @@ const testPackage = {
 };
 
 describe("delivery system", () => {
-  it("logs when I have a package to be picked up.", async () => {
-    const spy = jest.spyOn(console, "log");
-    await deliveryPackageReady(testPackage);
-    expect(spy).toHaveBeenCalledWith("package ready:", testPackage);
-  });
   it("logs when I have picked up a package and it is in transit.", async () => {
     const spy = jest.spyOn(console, "log");
     await deliveryPickupPackage(testPackage);
