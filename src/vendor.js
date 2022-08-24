@@ -20,9 +20,21 @@ function createPackage() {
 function onPackageDelivered(srcPackage) {
   srcPackage.deliveredDate = timestamp();
   console.log("package delivered:", srcPackage);
+  //thanks
+  socket.emit("packageDeliveredRecieved");
+}
+
+function processBacklog(srcPackages) {
+  for (const srcPackage of srcPackages) {
+    onPackageDelivered(srcPackage);
+  }
 }
 
 function startVending() {
+  // let's see what we missed while we were gone
+  socket.on("deliveredMessages", processBacklog);
+  socket.emit("requestDeliveredMessages");
+
   // listen for deliveries completed
   socket.on("packageDelivered", onPackageDelivered);
 

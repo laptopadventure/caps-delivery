@@ -6,6 +6,10 @@ const Driver = require("../driver");
 // Create a connection to the server
 const socket = io("ws://localhost:3500");
 
+//packages known about but no drivers- will pickup when one comes back
+const waitingForDrivers = [];
+
+//drivers
 let driversAvailable = [
   new Driver("Phoebe", Chance.hash()),
   new Driver("Tim", Chance.hash()),
@@ -22,12 +26,14 @@ function assignDriver() {
 
 function unAssignDriver(driver) {
   driversAvailable.push(driver);
+  //freed up driver, try to handle the backlog
+  handlePackageQueue(waitingForDrivers);
 }
 
-async function onPackageReady(srcPackage) {
-  console.log("package ready:", srcPackage);
-  await sleep(Chance.integer({ min: 1600, max: 2400 }));
-  pickupPackage(srcPackage);
+function handlePackageQueue(srcPackageQueue) {
+  while (srcPackageQueue.length && driversAvailable.length) {
+    pickupPackage(srcPackageQueue.shift());
+  }
 }
 
 async function pickupPackage(srcPackage) {
@@ -45,7 +51,8 @@ async function deliveryComplete(srcPackage) {
 }
 
 function startDelivery() {
-  socket.on("packageReady", onPackageReady);
+  socket.on("readyPackages", handlePackageQueue);
+  socket.on("packageReady", handlePackageQueue);
 }
 
 if (process.argv[2] === "start") {
@@ -53,7 +60,6 @@ if (process.argv[2] === "start") {
 }
 
 module.exports = {
-  deliveryPackageReady: onPackageReady,
   deliveryPickupPackage: pickupPackage,
   deliveryDeliveryComplete: deliveryComplete,
   deliverySocket: socket,

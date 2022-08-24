@@ -25,3 +25,5 @@ run `npm test` to run tests
 
 Zayah, Derek, and Luis for coding alongside me and inspiration for how to tackle the problem
 Stackoverflow for sleep helper implementation reference
+
+In lab 13, I got some great inspiration from Derek on how to implement the backlog.

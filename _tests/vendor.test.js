@@ -10,11 +10,6 @@ const testPackage = {
   creationDate: timestamp(),
 };
 
-/*
-As a vendor, I want to alert the system when I have a package to be picked up.
-As a vendor, I want to be 
-*/
-
 describe("vendor system", () => {
   it("logs when my package has been delivered.", () => {
     const spy = jest.spyOn(console, "log");
